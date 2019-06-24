@@ -56,7 +56,7 @@ bot.on('message', (message) => {
     } else if (msg.startsWith("playlist")) {
         if(queue.length == 0) return message.channel.send("There's no song at the playlist right now.");
         if(queue.length > 0){
-            console.log(queue);
+            message.channel.send(queue);
             for(var i = 0; i <queue.length; i++)
             {
 
