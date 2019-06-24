@@ -25,8 +25,6 @@ bot.on('message', (message) => {
                     fetchVideoInfo(id, function (err, videInfo) {
                         if (err) throw new Error(err);
                         message.reply("**" + videInfo.title + "** is added to queue");
-                        console.log(queue)
-                        message.reply(queue)
                     });
                 });
             } else {
