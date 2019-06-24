@@ -39,12 +39,29 @@ bot.on('message', (message) => {
                     });
                 });
             }
+        } else if(args == null){
+            message.reply("I am not in your head.Don't be lazy and splill out the name.");
         } else {
             message.reply("You need to be in a voice channel");
         }
     } else if (msg.startsWith("skip")) {
         skip_song(message);
         message.reply("song skipped");
+    } else if (msg.startsWith("stop")) {
+        if(!message.member.voiceChannel) return message.channel.send('You are not connectde to a channel');
+        if(!message.guild.me.voiceChannel) return message.channel.send('I am not singing anything');
+        if(message.guild.me.voiceChannelID != message.member.voiceChannelID) return message.channel.send('We are not in the same room');
+        message.guild.me.voiceChannel.leave();
+        message.channel.send("Hope you will love my song next time");
+    } else if (msg.startsWith("playlist")) {
+        if(queue.length == 0) return message.channel.send("There's no song at the playlist right now.");
+        if(queue.length > 0){
+            console.log(queue);
+            for(var i = 0; i <queue.length; i++)
+            {
+
+            }
+        }
     }
 });
 
