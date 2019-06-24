@@ -21,21 +21,20 @@ bot.on('message', (message) => {
         if (member.voiceChannel || bot.guilds.get("581169943224123392").voiceConnection != null) {
             if (queue.length > 0 || isPlaying) {
                 getID(args, function (id) {
-                    add_to_queue(id);
                     fetchVideoInfo(id, function (err, videInfo) {
                         if (err) throw new Error(err);
                         message.reply("**" + videInfo.title + "** is added to queue");
+                        add_to_queue(videInfo.title,id);
                     });
                 });
             } else {
                 isPlaying = true;
                 getID(args, function (id) {
-                    queue.push(id);
                     playMusic(id, message);
-
                     fetchVideoInfo(id, function (err, videInfo) {
                         if (err) throw new Error(err);
                         message.reply("now playing **" + videInfo.title + "**");
+                        queue.push({'SongName' : videInfo.title,'SongId' : id});
                     });
                 });
             }
@@ -83,7 +82,7 @@ function playMusic(id, message) {
                 queue = [];
                 isPlaying = false;
             } else {
-                playMusic(queue[0], message);
+                playMusic(queue[0].SongId, message);
             }
         })
     });
@@ -93,9 +92,9 @@ function skip_song(message) {
     dispatcher.end();
     console.log(queue);
     if (queue > 0) {
-        playMusic(queue[0], message);
+        playMusic(queue[0].SongId, message);
         console.log(queue);
-        console.log(queue[0]);
+        console.log(queue[0].SongId);
     } else {
         skipReq = 0;
         skippers = [];
@@ -112,11 +111,12 @@ function getID(str, cb) {
     }
 }
 
-function add_to_queue(strID) {
+function add_to_queue(title,strID) {
     if (isYoutube(strID)) {
-        queue.push(getYoutubeId(strID));
+        queue.push({'SongName' : title,'SongId' : getYoutubeId(strID)});
+        
     } else {
-        queue.push(strID);
+        queue.push({'SongName' : title,'SongId' : strID});
     }
 }
 
