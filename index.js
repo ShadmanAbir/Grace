@@ -12,7 +12,6 @@ var dispatcher = null;
 var voiceChannel = null;
 var skipReq = 0;
 var skippers = [];
-var playfromlist = 0;
 
 bot.on('message', (message) => {
     const member = message.member;
@@ -21,7 +20,6 @@ bot.on('message', (message) => {
     if (msg.startsWith("play")) {
         if (member.voiceChannel || bot.guilds.get("581169943224123392").voiceConnection != null) {
             if (queue.length > 0 || isPlaying) {
-                playfromlist = 0;
                 getID(args, function (id) {
                     fetchVideoInfo(id, function (err, videInfo) {
                         if (err) throw new Error(err);
@@ -29,11 +27,7 @@ bot.on('message', (message) => {
                         add_to_queue(videInfo.title,id);
                     });
                 });
-            } else if((queue.length > 0 || isPlaying) && isNaN(args) ){
-                playfromlist = 1;
-                playMusic(args, message);    
             } else {
-                playfromlist = 0;
                 isPlaying = true;
                 getID(args, function (id) {
                     playMusic(id, message);
@@ -63,7 +57,7 @@ bot.on('message', (message) => {
         if(queue.length > 0){
             for(var i = 0; i <queue.length; i++)
             {
-            message.channel.send((i+1) + "Name:" + queue[i].SongName  );
+            message.channel.send((i+1)+ ". Name:" + queue[i].SongName  );
             }
         }
     }
@@ -86,8 +80,6 @@ function playMusic(id, message) {
             if (queue.length === 0) {
                 queue = [];
                 isPlaying = false;
-            } else if(playfromlist == 1){
-                playMusic(queue[id].SongId, message);
             } else {
                 playMusic(queue[0].SongId, message);
             }
