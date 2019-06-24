@@ -32,7 +32,7 @@ bot.on('message', (message) => {
             } else {
                 isPlaying = true;
                 getID(args, function (id) {
-                    queue.push("");
+                    queue.push(id);
                     playMusic(id, message);
 
                     fetchVideoInfo(id, function (err, videInfo) {
