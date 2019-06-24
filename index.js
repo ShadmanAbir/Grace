@@ -53,7 +53,7 @@ bot.on('message', (message) => {
         if(message.guild.me.voiceChannelID != message.member.voiceChannelID) return message.channel.send('We are not in the same room');
         message.guild.me.voiceChannel.leave();
         message.channel.send("Hope you will love my song next time");
-    } else if (msg.startsWith("playlist")) {
+    } else if (msg.startsWith("-playlist")) {
         if(queue.length == 0) return message.channel.send("There's no song at the playlist right now.");
         if(queue.length > 0){
             message.channel.send(queue);
