@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const ytdl = require("ytdl-core");
 const request = require("request");
 const fs = require("fs");
-const getYoutubeId = require("get-Youtube-id");
+const getYoutubeId = require("get-youtube-id");
 const fetchVideoInfo = require("youtube-info");
 const bot = new Discord.Client();
 
@@ -115,23 +115,4 @@ function search_video(query, callback) {
 function isYoutube(str) {
     return str.toLowerCase().indexOf("youtube.com") > -1;
 }
-
-
-bot.on('message', (message) => {
-    if (message.content == "How do u do?") {
-        message.channel.sendMessage("I love Bishwajit");
-    }
-});
-
-bot.on('message', (message) => {
-    if (message.content == "What are u doing?") {
-        message.channel.sendMessage("Missing @Maksudshiblu");
-    }
-});
-
-bot.on('message', (message) => {
-    if (message.content.startsWith("play")) {
-        message.channel.sendMessage("Missing @Maksudshiblu");
-    }
-});
-bot.login('NTkyMjM3NDY1NTc4ODk3NDMx.XQ8a5A.gvwu8eqNR_ksjfcSjFKNkIGaWDY');
+bot.login(process.env.token);
