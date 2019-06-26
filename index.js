@@ -67,7 +67,7 @@ function playMusic(id, message) {
     voiceChannel = message.member.voiceChannel;
     voiceChannel.join().then(function (connection) {
         stream = ytdl("https://www.youtube.com/watch?v=" + id, {
-            filter: 'audioonly',
+            filter: 'audio',
             quality: 'highestaudio'
         });
         skipReq = 0;
