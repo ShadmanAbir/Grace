@@ -68,7 +68,8 @@ function playMusic(id, message) {
     voiceChannel.join().then(function (connection) {
         stream = ytdl("https://www.youtube.com/watch?v=" + id, {
             filter: 'audio',
-            quality: 'highestaudio'
+            quality: 'highestaudio',
+            bitrate: 320000
         });
         skipReq = 0;
         skippers = [];
