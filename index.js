@@ -69,7 +69,7 @@ function playMusic(id, message) {
         stream = ytdl("https://www.youtube.com/watch?v=" + id, {
             filter: 'audio',
             quality: 'highestaudio',
-            bitrate: 192000
+            bitrate: 96000
         });
         skipReq = 0;
         skippers = [];
